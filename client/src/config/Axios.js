@@ -10,4 +10,15 @@ headers:{ "content-type": "application/json",
 Authorization:`Barer ${authToken}`}
 
 })
+
+
+axios.interceptors.response.use(
+    response => {
+        console.log(response);
+      // If the access token is valid, return the response
+      if (response) {
+        console.log('hjwehiuhtgswef');
+        return response;
+      }})
+
 export default UserInstance
