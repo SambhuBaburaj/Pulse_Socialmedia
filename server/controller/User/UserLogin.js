@@ -5,12 +5,13 @@ var jwt = require('jsonwebtoken');
 const UserLogin=async (req,res)=>
 {
 const User=await UserData.findOne({email:req.body.Email})
+console.log('ejfvwj');
 console.log(User);
 let PassCheck
 if(User)
 {
  PassCheck=await bcrypt.compare(req.body.password,User.password)
-
+console.log(PassCheck);
 } 
 
 if(!User)
