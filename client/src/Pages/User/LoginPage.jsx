@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Components from "../../components/User/LoginPage/Components.js";
 import "../../Assets/LoginPage/Style.css";
-import UserInstance from "../../Api/Axios.js";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { faCoffee,arrow } from '@fortawesome/free-solid-svg-icons'
-<FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" />
+// import './Style.css'
+import UserInstance from "../../Api/Axios.js";
+
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function LoginPage() {
   //useState
@@ -23,12 +23,13 @@ function LoginPage() {
   const [UserIdLength, setIdLength] = useState("");
   const [LoginErr, setLoginerr] = useState("");
   const [signin, setsignin] = useState(false);
-  const [otp,setotp]=useState('')
-  const [otpModal,setOtpModal]=useState(false)
+  const [otp, setotp] = useState("");
   const [showDiv, setShowDiv] = useState(false);
-let [retryTime,setretryTime]=useState(0)
-const [OTPconfirm,setOTPconfirm]=useState(false)
-const Navigate = useNavigate();
+  let [retryTime, setretryTime] = useState(0);
+  const [otpModal, setOtpModal] = useState(false);
+  const [OTPconfirm, setOTPconfirm] = useState(false);
+
+  const Navigate = useNavigate();
 
   //UseEffect
 
@@ -39,16 +40,19 @@ const Navigate = useNavigate();
     setFillErr("");
     setPassErr("");
     setLoginerr("");
-    setOtpModal(false)
-    setotp('')
-    
+    setOtpModal(false);
+    // setOtpModal(false);
+    setotp("");
+    setOTPconfirm(false);
   }, [UserId, Email, password, userName]);
 
-
-
-
-
+  useEffect(()=>
+  {
+    setFillErr("");
+  },[otp])
   useEffect(() => {
+
+
     if (Email.length > 3 && password.length > 5) {
       setsignin(true);
     } else {
@@ -63,19 +67,35 @@ const Navigate = useNavigate();
     setUserId("");
   };
 
-useEffect(()=>
-{
-  setFillErr("");
+  function otpvariify() {
+    UserInstance.post("/Otp", { UserId, Email, password, userName }).then(
+      (data) => {
+        if (data.data.User === "UserId_failed") {
+          SetUserIdErr("UserId Already Taken");
+        } else if (data.data.User === "EmailId_failed") {
+          setEmailErr("Email Already Taken");
+        } else {
+          setretryTime(retryTime++);
+          setOtpModal(true);
+          otpReset();
+        }
+      }
+    );
+  }
 
-},[otp])
+  //handle functions
 
-
-
-
+  const otpReset = () => {
+    setTimeout(() => {
+      setShowDiv(true);
+    }, 30000);
+  };
 
   //handling request
 
   const handleSignUp = (event) => {
+    setShowDiv(false);
+
     event.preventDefault();
 
     const lastAtPos = Email.lastIndexOf("@");
@@ -97,34 +117,15 @@ useEffect(()=>
       setEmailErr("email id is not valid");
     } else if (password.length < 6) {
       setPassErr("password must be at least 6 letters");
-    } else if(!otpModal)
-    {
-if(retryTime===0)
-{     
-      setTimeout(() => {
-        setShowDiv(true);
-      }, 10000);
-UserInstance.post('/Otp',{UserId, Email, password, userName}).then((data)=>
-{
-  if (data.data.User === "UserId_failed") {
-    SetUserIdErr("UserId Already Taken");
-  } else if (data.data.User === "EmailId_failed") {
-    setEmailErr("Email Already Taken");
-  } else {
-    setretryTime(retryTime++)
-    setOtpModal(true)
+    } else if (!otpModal) {
+      if (retryTime === 0) {
+        otpvariify();
+      }
 
-  }
-
-})}
-
-//otp call
-    }
-    else if(!OTPconfirm){
-      setFillErr('varify OTP First')
-    }
-else    
-    {
+      //otp call
+    } else if (!OTPconfirm) {
+      setFillErr("varify OTP First");
+    } else {
       UserInstance.post("/signup", { userName, Email, password, UserId }).then(
         (data) => {
           if (data.data.User === "UserId_failed") {
@@ -134,43 +135,46 @@ else
           } else {
             toggle(true);
             handleReset();
-            console.log('user registered');
+            setOTPconfirm(false);
+            console.log("user registered");
           }
         }
       );
     }
   };
 
-  const checkOTP=()=>
-  {
-if(otp)
-{
-UserInstance.get(`/confirmOTP?OTPvalue=${otp}`).then((data)=>
-{
+  const retruOTP = () => {
+    setShowDiv(false);
+    
+    
+    setFillErr("");
+    otpvariify();
+  };
 
-})
-}
-else
-{
-  setFillErr('enter the otp')
-}
-  }
+  const checkOTP = () => {
+    if (otp) {
+      UserInstance.get(`/confirmOTP?OTPvalue=${otp}`)
+        .then((data) => {
+          //otp success
+          setOTPconfirm(true);
 
+          console.log("success otp validation");
+        })
+        .catch((data) => {
+          setFillErr("wrong otp");
+        });
+    } else {
+      setFillErr("enter the otp");
+    }
+  };
 
-
-//login
-
-
-
-
+  //login
 
   const SignIn = (event) => {
     event.preventDefault();
 
     const lastAtPos = Email.lastIndexOf("@");
     const lastDotPos = Email.lastIndexOf(".");
-
-    console.log(Email, password);
 
     if (
       !(
@@ -187,9 +191,9 @@ else
         .then((data) => {
           console.log(data);
           localStorage.setItem("user", JSON.stringify(data.data.User));
-          localStorage.setItem('UserAccessToken',data.data.accessToken)
+          localStorage.setItem("UserAccessToken", data.data.accessToken);
           Navigate("/home");
-        }) 
+        })
         .catch((err) => {
           if (err.response.status === 401) {
             setLoginerr("you entered wrong email/password");
@@ -202,9 +206,10 @@ else
   };
 
   return (
-    <Components.Container>
+    <div className="loginstyle">
+    <Components.Container className="Loginstyle">
       <Components.SignUpContainer signingIn={signIn}>
-        <Components.Form>
+        < Components.Form className='min-w-min' >
           <Components.Title>Create Account</Components.Title>
           {fillErr ? (
             <div className="text-red-500  text-sm animate-bounce-short">
@@ -259,7 +264,6 @@ else
             placeholder="Email"
           />
           {emailErr ? (
-
             <div className="text-red-500  text-sm animate-bounce-short">
               {emailErr}
             </div>
@@ -285,42 +289,57 @@ else
             <></>
           )}
 
-{otpModal?
-<>
-  <div className="flex gap-2 items-center">
+          {otpModal ? (
+            <>
+              {OTPconfirm ? (
+                <div
+                  className="bg-green-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                >
+                  varified
+                </div>
+              ) : (
+                <div className="flex gap-2 items-center">
+                  <Components.Input
+                    className="appearance:none"
+                    value={otp}
+                    onChange={(e) => {
+                      setotp(e.target.value);
+                    }}
+                    type="number"
+                    placeholder="OTP"
+                  />
 
-<Components.Input className="appearance:none"
-            value={otp}
-            onChange={(e) => {
-              setotp(e.target.value);
-            }}
-            type="number"
-            placeholder="OTP"
-          />
-   
-<div>
-<button onClick={checkOTP} class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
-      >
-<FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" /> confirm
-</button>
-</div>
-<div>
-      {showDiv && (
-    <button class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
-    >
-retry
-</button>
-      )}
-    </div>
-</div>
+                  <div>
+                    <button
+                      onClick={checkOTP}
+                      class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                    >
+                      confirm
+                    </button>
+                  </div>
+                  <div>
+                    {showDiv && (
+                      <button
+                        onClick={retruOTP}
+                        class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        <ion-icon
+                          className="text-xl"
+                          name="refresh-sharp"
+                        ></ion-icon>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            <></>
+          )}
 
-
-</>
-:<></>
-}
-
-
-          
           <Components.Button onClick={handleSignUp}>Sign Up</Components.Button>
         </Components.Form>
       </Components.SignUpContainer>
@@ -404,6 +423,7 @@ retry
         </Components.Overlay>
       </Components.OverlayContainer>
     </Components.Container>
+    </div>
   );
 }
 

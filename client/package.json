@@ -21,6 +21,9 @@
   "@fortawesome/react-fontawesome": "^0.2.0",
   
     
+  "@syncfusion/ej2-react-navigations": "^20.4.43",
+  
+    
   "@testing-library/jest-dom": "^5.16.5",
   
     
@@ -31,6 +34,9 @@
   
     
   "axios": "^1.2.2",
+  
+    
+  "classnames": "^2.3.2",
   
     
   "cors": "^2.8.5",
@@ -46,6 +52,9 @@
   
     
   "react-email-validator": "^1.0.2",
+  
+    
+  "react-icons": "^4.7.1",
   
     
   "react-router-dom": "^6.6.1",

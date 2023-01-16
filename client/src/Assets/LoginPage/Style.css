@@ -4,8 +4,8 @@
   box-sizing: border-box;
 }
 
-body {
-  background: #f6f5f7;
+.loginstyle {
+  background: #f8f3fe;
   display: flex;
   justify-content: center;
   align-items: center;

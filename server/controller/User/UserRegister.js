@@ -9,7 +9,7 @@ const RegisterUser=async (req,res)=>
 const UserId=await User.UsersData.findOne({  UserId:req.body.UserId})
 const Email=await User.UsersData.findOne({email:req.body.Email})
 
-console.log(UserId);
+
 
 if(UserId)
 {
@@ -33,7 +33,7 @@ else{
 
 
     const HashedPassword=await bcrypt.hash(req.body.password,10)
-console.log(req.body);
+
 const UserRegister=new User.UsersData({
     username:req.body.userName,
     UserId:req.body.UserId,
@@ -65,8 +65,6 @@ const EmailConfirm=async(req,res)=>
     const UserId=await User.UsersData.findOne({  UserId:req.body.UserId})
     const Email=await User.UsersData.findOne({email:req.body.Email})
     
-    console.log(UserId);
-    console.log(Email);
     if(UserId)
     {
     res.json({User:'UserId_failed'})
@@ -86,8 +84,8 @@ const EmailConfirm=async(req,res)=>
            
               // true for 465, false for other ports
              auth: {
-               user: 'sambhubaburaj007@gmail.com',
-               pass: 'bozjexessgfldcfz'
+               user: 'pulse.messenger.io@gmail.com',
+               pass: 'mrmylndgjjvyttvf'
              },
              tls: {
                  rejectUnauthorized: false,
@@ -96,18 +94,14 @@ const EmailConfirm=async(req,res)=>
      
      
      
-     
-     
-     
          const secret = otplib.authenticator.generateSecret();
          otp = otplib.authenticator.generate(secret);
 
 
-
-
+const user=req.body.Email.toString() 
             let info = await transporter.sendMail({
-        from:' sambhubaburaj007@gmail.com',
-        to: 'sambhubaburaj513@gmail.com',
+        from:'pulse.messenger.io@gmail.com',
+        to: user,
         subject: "Pulse",
         text: `Your one time password is ${otp}`,
       });
@@ -121,11 +115,10 @@ const EmailConfirm=async(req,res)=>
 
 const OTPConfirm=(req,res)=>
 {
-    console.log('ergkuesngri`');
+   
 
 
     
-console.log(req.query );
 
 
 try{
@@ -134,12 +127,14 @@ try{
    if(req.query.OTPvalue==otp)
   {  
     
-    console.log('seccuess');
+    console.log('success');
 
     //otp success
+    res.status(200).json(true)
 }
   else{
-console.log('errorrrr');
+console.log('error');
+res.status(403).json(false)
 //otp failed
   }
 }

@@ -1,0 +1,7 @@
+.container {
+    @apply bg-gray-900  ;
+  }
+  
+  .devLogo {
+    @apply  flex  justify-end text-5xl text-gray-300  bg-gray-900 h-screen;
+  }

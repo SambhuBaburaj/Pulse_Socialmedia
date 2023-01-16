@@ -3,7 +3,7 @@ import {Outlet,Navigate} from 'react-router-dom'
 function UserLoginPage() {
     const user=localStorage.getItem('user')
   return (
-    user?<Outlet/>:<Navigate to=''/>
+    user?<Outlet/>:<Navigate to='/'/>
   )
 }
 

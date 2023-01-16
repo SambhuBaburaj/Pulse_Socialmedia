@@ -31,7 +31,7 @@ export const Container = styled.div`
   overflow: hidden;
   width: 678px;
   max-width: 100%;
-  min-height: 400px;
+  min-height: 465px;
 `;
 
 export const SignUpContainer = styled.div`
