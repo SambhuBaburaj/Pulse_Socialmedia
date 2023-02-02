@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pulsemessenger",
+  "private_key_id": "3759561eee90bc8d12306326db3165fb9c45ee01",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCjkv/rYy+1joqK\nc7ld+3mr/rUTb5S+ZG3z/oT/kbicbl/35m2hdhBpxqUuPVissVb0PqI8eUCRUVf+\n+F2Rt/2swLpB4ILvCEp8iirSnwYSUooAygdZnur50yPlLl0gafELKtu7oAM0tU22\nL/8bvThsLkAmGbLKN/+sirztmK9fEk0cC8tNkKpdKPaw7pqRHwdbRiVcS26hnjCX\nvDXZHyi+wxD9GHFvItOTEa3MMsMYuP6MySAM8r5q7UAjQwrz62sH6QME6VY2689L\noeV6aVgY+iG7eRCj2uMVrTwOFa1qVUvgE2Y1UtpmLSNNnWWOJLN1NUYokVuWrTN2\nY34zY277AgMBAAECggEAMzedg244q5AYyBZJJejOZbDosM/A0sauePYqXb2agPy8\ndupDTImjxQMKiIpz4ArdL7gG44mR0o6WT4MkBTMHrpZgG615QfAmJo26r91UMNuA\nU5Purjyo1ZWriSC1zybs7zK5v6twJYpZbWDk76IVbyYiNuvYBCJ5n2SHmJu02b7o\ndDcUIEmz7/pBwFVG+EnCME4zyUjoZ9wyzlDD/V0nRVWb1Ak7f/xJ9geAnfRGO9TL\nEufh7cOX3856AuhLTfb6m4i8Fn/dfMLSTNR/m8VOAtKPwHXQgJK+DVlFcUjNI3m4\niGrl41G0BMGy050458NKpBmENSr9dlzo8r0BmUl+oQKBgQDWitVY/36U5bxEe/oa\nV2ut1E9upvHwvPDulKRt3wxl+XvVKITmbh+6UwqjTQZ0ySmr8q5QloS//zBSuYNE\n+nCofAm0XlSM0baYvv1TLkXPF9Wr/erJE/dpf1r8M9AfSfX5Ivh1/0Z5VOiKOUJa\nu6d19s546WpMkYM5avut+dEvIQKBgQDDLtTyklzbsOVhLbAWsITd7u2hacWIMDUW\nUSs59MHLVC9F1wuy3CM98tSji25yoAmxwUvovF230Wa81FDYpzHoy6q3SNxh/fOy\nuH8D6CmgOC7DfIb8+TVfuYXLOe+LhAIh48rGN2nL5OpbTDtl+snPCd4X3y8Ck+7o\njWL0zh0mmwKBgF9NHKiEFf6ebpsdV2QMIVD+VqqYjjCaPYw9iy0jP6asxE1TynVx\nxbZG3RrdRFjsYw52pug1dJK1EQouThl+Bj1RnB37KSPEpJAFhxJEI85yj//uszTP\nIcBDSm9ttK2xdQpOdoAz/WI4TXPZK5iSczj7gYxEY2vP17LRyyrlJf8BAoGAL9hO\nCPxJ2Oye/dhWPumcWE7WX2fvLPgsO0FAaF+QFciYIfWZ/4ko9mmNKF3ogB6s4a7x\nbaanDoU9OvKMst8hQ+CRA4bPxxGaaGgDcrC5a3X6OJ9Q87gfFk0C+BNGnhuI7kfJ\nkBdLTtjZffHM6a21RJQ1pgJmoqoiuUzXQg04ZhsCgYEAgF5VKUEKnTJYmgnJCtJJ\nKaIwor8YGr+efACRsKDihPp1+locqEHAv8Qjm/+pe625fd1ky4/F4k3VANinFatw\nHq6J3et3MWxg3ZzTdtZUgWY23uqm1wnzo1tVQYL2LdYL+AFccFKSJs5nynpsH/x7\nUz5rYW3IEjzzOraOt0/m+pc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "pulsemessengersm@pulsemessenger.iam.gserviceaccount.com",
+  "client_id": "115006207477862092987",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pulsemessengersm%40pulsemessenger.iam.gserviceaccount.com"
+}

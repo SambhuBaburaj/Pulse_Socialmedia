@@ -7,50 +7,53 @@ import { HiAnnotation, HiSearch } from "react-icons/hi";
 import { FiBell } from "react-icons/fi";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import ShareMedia from "../../../Pages/User/ShareMedia";
 import {
-  BsImageFill,
-  BsFillHandbagFill,
-  BsFillStarFill,
+
   BsHouseFill,
 } from "react-icons/bs";
-import { RiSettings4Fill } from "react-icons/ri";
-import { FaRegBell } from "react-icons/fa";
-import classNames from "classnames";
 
+import classNames from "classnames";
 import styles from "../home/Sidebar.module.css";
 import { Navigate } from "react-router-dom";
 
+
 const Sidebar = ({ navigationData }) => {
-  const [currentRoute, setCurrentRoute] = useState(useLocation().pathname);
+const [currentRoute, setCurrentRoute] = useState(useLocation().pathname);
+const [MediaModal, setMediaModal] = useState(false);
 
 
+  const Navigate = useNavigate();
 
-  console.log(currentRoute);
-  console.log('its here');
-const Navigate=useNavigate()
-const routeing=(element)=>
+const LogOut=()=>
 {
-  setCurrentRoute(element);
-Navigate(element)
+  localStorage.removeItem('user');
+  localStorage.removeItem('UserAccessToken');
+  Navigate('/')
 }
-// useEffect(()=>
-// {
 
-//   Navigate(currentRoute.route)
+  const routeing = (element) => {
 
-// },[currentRoute.route])
+    if(element==='/post')
+ {   
+  
+      setMediaModal(!MediaModal)
 
-
-
+  }
+    else{
+    
+      setCurrentRoute(element);
+      Navigate(element);
+    }
+  };
 
   const renderIcon = useCallback((element) => {
-
-
-
-
     switch (element) {
       case "/home":
+
+
+
+
         return (
           <>
             <strong className="flex gap-3 items-center">
@@ -85,6 +88,7 @@ Navigate(element)
         return (
           <div className="flex gap-3 items-center">
             <AiFillPlusCircle /> Create
+            {/* <button onClick={() => {setMediaModal(!MediaModal)}}> Create </button> */}
           </div>
         );
       case "/profile":
@@ -99,6 +103,7 @@ Navigate(element)
   }, []);
 
   return (
+    <>
     <div>
       <nav className={styles.wrapper}>
         <span className={styles.logo}>
@@ -110,7 +115,6 @@ Navigate(element)
             alt=""
           />
         </span>
-  
 
         {/* the ul is here */}
         <ul className={styles.navListItems}>
@@ -123,24 +127,24 @@ Navigate(element)
                 "group",
               ])}
               onClick={() => {
-      routeing(element)
+                routeing(element);
               }}
             >
-       
-         
               {renderIcon(element)}
-         
             </li>
           ))}
         </ul>
         <div className={styles.bottomWrapper}>
-          <span className={styles.settingsLogo}>
+          <span onClick={LogOut} className={styles.settingsLogo}>
             <IoMdLogOut />
             LogOut
           </span>
         </div>
       </nav>
     </div>
+    {MediaModal&&<ShareMedia setMediaModal= {setMediaModal} MediaModal= {MediaModal}/>}
+    
+    </>
   );
 };
 

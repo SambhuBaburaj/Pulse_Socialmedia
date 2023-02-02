@@ -26,7 +26,7 @@ function Profile() {
                   </button>
                 </div>
                 <div className="flex">
-                  <div className="text-sm p-5">63 follower</div>
+                  <div className="text-sm p-5">61 follower</div>
                   <div className="text-sm p-5">96 following</div>
                 </div>
               </div>
@@ -34,8 +34,8 @@ function Profile() {
           </div>
         </div>
       </div>
-      <div className=" w-full h-20 flex justify-end">
-        <div className="w-5/6   -400 h-20 flex justify-center ">
+      <div className=" w-full flex justify-end">
+        <div className="w-5/6   -400  flex justify-center ">
           <div className="p-4 w-11/12 border-t-2 border-gray-600  flex justify-center">
            
             <div className=" w-11/12 rounded-sm  ">

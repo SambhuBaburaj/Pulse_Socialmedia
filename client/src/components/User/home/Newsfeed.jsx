@@ -1,18 +1,58 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faComment, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import {
 
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
 // import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NewsFeed } from "../../../Api/APIcalls";
+import { useState } from "react";
+import UserInstance from "../../../Api/Axios";
 function Newsfeed() {
+const [NewsFeedData,SetNewsFeedData]=useState([])
+
+useEffect(()=>
+{
+  const feed=UserInstance.get('/NewsFeed').then((data)=>
+  {
+let datafeed=data.data.feed
+
+SetNewsFeedData(datafeed)
+console.log('hello');
+console.log(NewsFeedData);
+
+  })
+},[])
+
+
+
+
+
+
+
   return (
-    <div className="w-4/6 flex justify-center">
-      <div className="w-4/6 ">
+    <div className="w-4/6 flex justify-center bg-gray-900 ">
+      <div className="w-4/6  ">
         <div className="py-10 bg-gray-900 ">
+     
+
           <div className="py-4 px-2 ">
+          
+          
             <div className="max-w-md mx-auto bg-black shadow-lg rounded-md overflow-hidden md:max-w-lg border-gray-600 border-2">
               <div className="md:flex  ">
                 <div className="w-full">
+
+
+
+
+
                   <div className="flex justify-between items-center p-3">
                     <div className="flex flex-row items-center">
                       <img
@@ -37,15 +77,30 @@ function Newsfeed() {
                       </div>
                     </div>
 
-                    <div className="pr-2">
+                    <div className=" flex justify-center">
                       {/* <i className="fa fa-ellipsis-h text-gray-400 hover:cursor-pointer hover:text-gray-600"></i> */}
-                      <FontAwesomeIcon
+                      {/* <FontAwesomeIcon
                         className="w-6 text-gray-400 hover:cursor-pointer hover:text-gray-600"
                         icon={faEllipsis}
-                      />
+                      /> */}
+                      <Menu placement="right-start">
+                        <MenuHandler>
+                          <Button className="text-gray-400 background-transparent bg-transparent ">
+                            {" "}
+                            <FontAwesomeIcon
+                              className="w-6 text-gray-400 hover:cursor-pointer hover:text-gray-600"
+                              icon={faEllipsis}
+                            />
+                          </Button>
+                        </MenuHandler>
+                        <MenuList className="flex flex-col py-0 bg-gray-700 ">
+                          <MenuItem className=" bg-gray-700 text-red-500 ">
+                            Report 
+                          </MenuItem>
+                        </MenuList>
+                      </Menu>
                     </div>
                   </div>
-
                   <div>
                     {/* <div className='min-w-full h-72'> </div> */}
                     <img
@@ -73,27 +128,32 @@ function Newsfeed() {
                     {/* <div>
                       <i className="fa fa-bookmark-o fa-1x hover:text-gray-600"></i>
                     </div> */}
-                  </div> 
+                  </div>
                   <p className=" pl-3 text-xs p-2">44 likes</p>
                   <div className="pl-4 flex gap-4 border-b">
-                  <p className="text-base font-bold">faith</p>
-                  <p className="text-base">this is awsome</p>
+                    <p className="text-base font-bold">faith</p>
+                    <p className="text-base">this is awsome</p>
                   </div>
-                  <div className="flex items-center"> 
-                  <input placeholder="add Comment" type="text" id="small-input" className="border-none  focus:border-none  block w-full p-2 text-white border   bg-black sm:text-xs   dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "/>
-                  
-                
-                <button className=" h-5 w-20 text-white  bg-black hover:text-gray-400 text-sm font-bold">Post</button>
-                
-            
+                  <div className="flex items-center">
+                    <input
+                      placeholder="add Comment"
+                      type="text"
+                      id="small-input"
+                      className="border-none  focus:border-none  block w-full p-2 text-white border   bg-black sm:text-xs   dark:bg-black dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
+                    />
+
+                    <button className=" h-5 w-20 text-white  bg-black hover:text-gray-400 text-sm font-bold">
+                      Post
+                    </button>
                   </div>
-                
-             
-</div>
-                 
+                </div>
               </div>
             </div>
           </div>
+
+ 
+
+          
           {/* next post   */}
           <div className="py-4 px-2">
             <div className="max-w-md mx-auto bg-black shadow-lg rounded-md overflow-hidden md:max-w-lg ">

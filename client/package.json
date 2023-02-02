@@ -21,6 +21,9 @@
   "@fortawesome/react-fontawesome": "^0.2.0",
   
     
+  "@material-tailwind/react": "^1.2.5",
+  
+    
   "@syncfusion/ej2-react-navigations": "^20.4.43",
   
     
@@ -52,6 +55,9 @@
   
     
   "react-email-validator": "^1.0.2",
+  
+    
+  "react-google-drive-picker": "^1.2.0",
   
     
   "react-icons": "^4.7.1",

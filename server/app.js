@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const MongooseConnection=require('./model/mongoose')
 
-
 var usersRouter = require('./routes/users');
 const AdminRouter=require('./routes/Admin')
 const cors=require('cors')
@@ -22,7 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 app.use('/', usersRouter);
 app.use('/admin',AdminRouter);
@@ -39,7 +39,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  // res.render('error');
 });
 
 module.exports = app;
