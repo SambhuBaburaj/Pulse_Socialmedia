@@ -11,7 +11,7 @@ function UserHome() {
 
     }
    
-console.log(AuthToken);
+
   return (
    user&&AuthToken? <Navigate to='/home'/>:<Outlet/>
   )

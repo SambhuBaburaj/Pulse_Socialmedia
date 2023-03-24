@@ -189,7 +189,7 @@ function LoginPage() {
     } else {
       UserInstance.post("/login", { Email, password })
         .then((data) => {
-          console.log(data);
+      
           localStorage.setItem("user", JSON.stringify(data.data.User));
           localStorage.setItem("UserAccessToken", data.data.accessToken);
           Navigate("/home");

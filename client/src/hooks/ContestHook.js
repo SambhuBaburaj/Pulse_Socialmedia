@@ -1,6 +1,5 @@
-import React, { createContext, useEffect, useState } from 'react'
-import  {NewsFeed}  from '../Api/APIcalls'
-import UserInstance from '../Api/Axios'
+import React, { createContext,  useState } from 'react'
+
 
  function ContestHook({children}) {
 const [UploadMedia,SetUploadMedia]=useState('')

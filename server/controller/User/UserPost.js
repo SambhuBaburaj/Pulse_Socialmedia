@@ -17,7 +17,7 @@ try
         {
           if(err)
           {
-            console.log('second fail');
+ 
             // console.log(err);
         res.status(200).json({user:401})
           

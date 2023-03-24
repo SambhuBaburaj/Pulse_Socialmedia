@@ -20,8 +20,8 @@ SetImage(e.target.files[0])
 
   const close = () => {
     setMediaModal(false);
-    console.log(MediaModal);
-    console.log("its closed");
+
+  
   };
   //submit control
   const handleSubmit = async (e) => {
@@ -34,7 +34,7 @@ if(Image)
   // console.log(formData,'this is form data');
     let data =await SharePost(formData).then((data)=>
     {
-console.log(data);
+
 setMediaModal(false)
     });
 }

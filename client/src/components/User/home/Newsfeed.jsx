@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faComment, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faGrinHearts } from "@fortawesome/free-regular-svg-icons";
+import {faHeart, faComment, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import {
 
   Menu,
@@ -9,11 +9,18 @@ import {
   MenuItem,
   Button,
 } from "@material-tailwind/react";
+
 // import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NewsFeed } from "../../../Api/APIcalls";
 import { useState } from "react";
 import UserInstance from "../../../Api/Axios";
+// import image from '../../../../../server/public/images/1675355742967-photo-1530082625928-db66d39c5a21.jpg'
+// import UserInstance from "../../../../../server/public/images/";
+
+import env from "react-dotenv";
+import HandleErrors from "../Error/HandleErrors";
+
 function Newsfeed() {
 const [NewsFeedData,SetNewsFeedData]=useState([])
 
@@ -23,13 +30,24 @@ useEffect(()=>
   {
 let datafeed=data.data.feed
 
+// const base64 = Buffer.from(imageData.data).toString("base64");
+// setImage(`data:${imageData.contentType};base64,${base64}`);
 SetNewsFeedData(datafeed)
-console.log('hello');
-console.log(NewsFeedData);
+datafeed.map((val,key)=>
+{
+
+return  val.likes.indexOf(val.User.email);
+
+})
+
+  }
+  ).catch((err)=>
+  {
+console.log(err);
+HandleErrors()
 
   })
 },[])
-
 
 
 
@@ -41,8 +59,10 @@ console.log(NewsFeedData);
       <div className="w-4/6  ">
         <div className="py-10 bg-gray-900 ">
      
-
-          <div className="py-4 px-2 ">
+        {NewsFeedData.slice(0).reverse().map((val,key)=>
+     {
+      return(
+        <div className="py-4 px-2 ">
           
           
             <div className="max-w-md mx-auto bg-black shadow-lg rounded-md overflow-hidden md:max-w-lg border-gray-600 border-2">
@@ -64,7 +84,7 @@ console.log(NewsFeedData);
 
                       <div className="flex flex-row items-center ml-2">
                         <span className="font-bold mr-1 text-sm text-white">
-                          Mautic War
+                        {val.User.UserId}
                         </span>
 
                         <small className="h-1 w-1 bg-gray-300 rounded-full mr-1 mt-1"></small>
@@ -103,8 +123,10 @@ console.log(NewsFeedData);
                   </div>
                   <div>
                     {/* <div className='min-w-full h-72'> </div> */}
+              
                     <img
-                      src="https://i.imgur.com/kOFqgtE.jpg"
+                     src={`http://localhost:8000/static/images/${val.Post}`}
+                    //  src={`http://localhost:5000/static/images/${job.companylogo}`}
                       alt="Logo"
                       className="w-full max-h-md mh-auto md:max-h-[36rem]"
                     />
@@ -115,10 +137,17 @@ console.log(NewsFeedData);
                       {/* <i className="fa fa-heart-o mr-2 fa-1x hover:text-gray-600"></i>
             <i className="fa fa-comment-o mr-2 fa-1x hover:text-gray-600"></i>
             <i className="fa fa-send-o mr-2 fa-1x hover:text-gray-600"></i> */}
-                      <FontAwesomeIcon
-                        className="w-6 text-white"
-                        icon={faHeart}
-                      />
+                
+
+{val.likes.indexOf(val.User.email)?
+<FontAwesomeIcon className='w-6 text-red-500' icon={faHeart} />:
+      <FontAwesomeIcon
+      className="w-6 text-white"
+      icon={faHeart}
+    />
+    
+}
+
                       <FontAwesomeIcon
                         className="w-6 text-white"
                         icon={faComment}
@@ -129,7 +158,7 @@ console.log(NewsFeedData);
                       <i className="fa fa-bookmark-o fa-1x hover:text-gray-600"></i>
                     </div> */}
                   </div>
-                  <p className=" pl-3 text-xs p-2">44 likes</p>
+                  <p className=" pl-3 text-xs p-2">{val.likes.length}</p>
                   <div className="pl-4 flex gap-4 border-b">
                     <p className="text-base font-bold">faith</p>
                     <p className="text-base">this is awsome</p>
@@ -150,149 +179,16 @@ console.log(NewsFeedData);
               </div>
             </div>
           </div>
+      )
+     })}
+     
+        
 
  
 
           
           {/* next post   */}
-          <div className="py-4 px-2">
-            <div className="max-w-md mx-auto bg-black shadow-lg rounded-md overflow-hidden md:max-w-lg ">
-              <div className="md:flex">
-                <div className="w-full">
-                  <div className="flex justify-between items-center p-3">
-                    <div className="flex flex-row items-center">
-                      <img
-                        src="https://i.imgur.com/aq39RMA.jpg"
-                        alt="Logo"
-                        className="rounded-full w-10"
-                      />
-                      {/* <div className='rounded-full w-40'></div> */}
-
-                      <div className="flex flex-row items-center ml-2">
-                        <span className="font-bold mr-1 text-sm text-white">
-                          Mautic War2
-                        </span>
-
-                        <small className="h-1 w-1 bg-gray-300 rounded-full mr-1 mt-1"></small>
-                        <a
-                          href="#"
-                          className="text-blue-600 text-sm hover:text-blue-800"
-                        >
-                          Follow
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="pr-2">
-                      {/* <i className="fa fa-ellipsis-h text-gray-400 hover:cursor-pointer hover:text-gray-600"></i> */}
-                      <FontAwesomeIcon
-                        className="w-6 text-gray-400 hover:cursor-pointer hover:text-gray-600"
-                        icon={faEllipsis}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    {/* <div className='min-w-full h-72'> </div> */}
-                    <img
-                      src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y29vbCUyMHBpY3xlbnwwfHwwfHw%3D&w=1000&q=80"
-                      alt="Logo"
-                      className="w-full max-h-md mh-auto md:max-h-[36rem]"
-                    />
-                  </div>
-
-                  <div className="p-4 flex justify-between items-center">
-                    <div className="flex flex-row items-center gap-3">
-                      {/* <i className="fa fa-heart-o mr-2 fa-1x hover:text-gray-600"></i>
-            <i className="fa fa-comment-o mr-2 fa-1x hover:text-gray-600"></i>
-            <i className="fa fa-send-o mr-2 fa-1x hover:text-gray-600"></i> */}
-                      <FontAwesomeIcon
-                        className="w-6 text-white"
-                        icon={faHeart}
-                      />
-                      <FontAwesomeIcon
-                        className="w-6 text-white"
-                        icon={faComment}
-                      />
-                    </div>
-
-                    <div>
-                      <i className="fa fa-bookmark-o fa-1x hover:text-gray-600"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="py-4 px-2">
-            <div className="max-w-md mx-auto bg-black shadow-lg rounded-md overflow-hidden md:max-w-lg">
-              <div className="md:flex">
-                <div className="w-full">
-                  <div className="flex justify-between items-center p-3">
-                    <div className="flex flex-row items-center">
-                      <img
-                        src="https://i.imgur.com/aq39RMA.jpg"
-                        alt="Logo"
-                        className="rounded-full w-10"
-                      />
-                      {/* <div className='rounded-full w-40'></div> */}
-
-                      <div className="flex flex-row items-center ml-2">
-                        <span className="font-bold mr-1 text-sm text-white">
-                          Mautic War
-                        </span>
-
-                        <small className="h-1 w-1 bg-gray-300 rounded-full mr-1 mt-1"></small>
-                        <a
-                          href="#"
-                          className="text-blue-600 text-sm hover:text-blue-800"
-                        >
-                          Follow
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="pr-2">
-                      {/* <i className="fa fa-ellipsis-h text-gray-400 hover:cursor-pointer hover:text-gray-600"></i> */}
-                      <FontAwesomeIcon
-                        className="w-6 text-gray-400 hover:cursor-pointer hover:text-gray-600"
-                        icon={faEllipsis}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    {/* <div className='min-w-full h-72'> </div> */}
-                    <img
-                      src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGljfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-                      alt="Logo"
-                      className="w-full h-75"
-                    />
-                  </div>
-
-                  <div className="p-4 flex justify-between items-center">
-                    <div className="flex flex-row items-center gap-3">
-                      {/* <i className="fa fa-heart-o mr-2 fa-1x hover:text-gray-600"></i>
-            <i className="fa fa-comment-o mr-2 fa-1x hover:text-gray-600"></i>
-            <i className="fa fa-send-o mr-2 fa-1x hover:text-gray-600"></i> */}
-                      <FontAwesomeIcon
-                        className="w-6 text-white"
-                        icon={faHeart}
-                      />
-                      <FontAwesomeIcon
-                        className="w-6 text-white"
-                        icon={faComment}
-                      />
-                    </div>
-
-                    <div>
-                      <i className="fa fa-bookmark-o fa-1x hover:text-gray-600"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ function NewFollow() {
 const[UserData,setUserData]=useState(JSON.parse(localStorage.getItem('user')))
 
 
-console.log(UserData);
+
   return (
 <div className="bg-gray-800 rounded-3xl  h-screen fixed w-full">
 

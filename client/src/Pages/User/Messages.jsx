@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { FaDev } from "react-icons/fa";
 import styles from "../../components/User/home/App.module.css";
 import Sidebar from "../../components/User/home/Sidebar";
@@ -9,7 +9,27 @@ import NewFollow from "../../components/User/home/NewFollow";
 import { Outlet, useLocation } from "react-router-dom";
 import ChatNames from "../../components/User/messages/ChatNames";
 import ChatMessages from "../../components/User/messages/ChatMessages";
+import "../../Assets/Messages/MessageStyle.css"
+import { ChatState } from "../../hooks/ChatProvider";
+import { Chat } from "../../Api/APIcalls";
 function Messages() {
+
+const [loggedUser, setloggedUser] = useState()
+  // const { User, setSelectedChat, Chats, setChats } = ChatState();
+
+const fetchChats=async()=>
+{
+  try{
+ const { data } = await Chat;
+
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
+}
+
+
   return (
     <div className={styles.container}>
       <div>

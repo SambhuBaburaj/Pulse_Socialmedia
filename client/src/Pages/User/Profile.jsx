@@ -1,6 +1,9 @@
 import React from "react";
 
 function Profile() {
+
+const UserData=JSON.parse(localStorage.getItem('user'))
+
   return (
     <div>
       <div className="bg-gray-900 w-screen  flex justify-end">
@@ -9,7 +12,8 @@ function Profile() {
             <div className="w-11/12  m-5 flex">
               <div className="w-1/6 ">
                 <img
-                  src="https://i.imgur.com/aq39RMA.jpg"
+                  src={UserData.profileImage}
+
                   alt="Logo"
                   className="rounded-full w-32 m-4"
                 />
@@ -17,7 +21,7 @@ function Profile() {
 
               <div className="w-full">
                 <div className="w-full h-10 flex justify-between">
-                  <strong className="text-3xl p-5">Faith</strong>
+                  <strong className="text-3xl p-5">{UserData.username}</strong>
                   <button
                     class="bg-slate-500 text-white active:bg-slate-600 font-bold uppercase text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
@@ -26,8 +30,8 @@ function Profile() {
                   </button>
                 </div>
                 <div className="flex">
-                  <div className="text-sm p-5">61 follower</div>
-                  <div className="text-sm p-5">96 following</div>
+                  <div className="text-sm p-5">{UserData.followers.length} followers</div>
+                  <div className="text-sm p-5">{UserData.following.length}  following</div>
                 </div>
               </div>
             </div>

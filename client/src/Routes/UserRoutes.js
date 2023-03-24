@@ -10,8 +10,10 @@ import SearchPeople from "../Pages/User/SearchPeople";
 import Notification from "../Pages/User/Notification";
 import Profile from "../Pages/User/Profile";
 import ContestHook from "../hooks/ContestHook";
+
 function UserRoutes() {
   return (
+
     <ContestHook>
       <Routes>
         <Route element={<UserHome />}>
@@ -28,6 +30,7 @@ function UserRoutes() {
         </Route>
       </Routes>
     </ContestHook>
+
   );
 }
 
